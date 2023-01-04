@@ -33,15 +33,7 @@ public class DataClass {
         this.dataTitle = dataTitle;
     }
 
-    public void setDataDesc(String dataDesc) {
-        this.dataDesc = dataDesc;
-    }
+    public DataClass() {
 
-    public void setDataLang(String dataLang) {
-        this.dataLang = dataLang;
-    }
-
-    public void setDataImage(String dataImage) {
-        this.dataImage = dataImage;
     }
 }

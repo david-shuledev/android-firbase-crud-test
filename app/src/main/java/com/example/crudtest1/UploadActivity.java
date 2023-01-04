@@ -51,11 +51,11 @@ public class UploadActivity extends AppCompatActivity {
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        if(result.getResultCode() == Activity.RESULT_OK){
+                        if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
                             uri = data.getData();
                             uploadImage.setImageURI(uri);
-                        }else{
+                        } else {
                             Toast.makeText(UploadActivity.this, "No image available", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -80,7 +80,7 @@ public class UploadActivity extends AppCompatActivity {
     }
 
 
-    public void saveData(){
+    public void saveData() {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android images")
                 .child(uri.getLastPathSegment());
 
@@ -94,7 +94,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uriTask.isComplete());
+                while (!uriTask.isComplete()) ;
                 Uri urlImage = uriTask.getResult();
                 imageURL = urlImage.toString();
                 uploadData();
@@ -109,18 +109,18 @@ public class UploadActivity extends AppCompatActivity {
     }
 
 
-    public void uploadData(){
+    public void uploadData() {
         String title = uploadTopic.getText().toString();
         String desc = uploadDesc.getText().toString();
         String lang = uploadLang.getText().toString();
 
-        DataClass dataClass = new DataClass(title,desc,lang,imageURL);
+        DataClass dataClass = new DataClass(title, desc, lang, imageURL);
 
         FirebaseDatabase.getInstance().getReference("Android Tutorials").child(title)
                 .setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(UploadActivity.this, "Saved", Toast.LENGTH_SHORT).show();
                             finish();
                         }
